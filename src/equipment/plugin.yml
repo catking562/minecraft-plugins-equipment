@@ -1,0 +1,24 @@
+name: equipment
+version: 0.1
+main: equipment.main
+description: for first online season2
+author: taewookim562
+website: https://github.com/catking562/minecraft-plugins-equipment/tree/master
+
+commands:
+  장비:
+    description: open equipment GUI
+    permission: equipment.user
+  장비설정:
+    description: create equipment, set option for euipment
+    permission: equipment.admin
+
+permissions:
+  equipment.admin:
+    description: can use equipment admin command
+    default: op
+    children:
+      equipment.user: true
+  equipment.user:
+    description: can use equipment user command
+    default: true
