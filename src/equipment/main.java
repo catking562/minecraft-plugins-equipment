@@ -15,67 +15,67 @@ public class main extends JavaPlugin {
 	
 	Map<String, File> file = new HashMap<String, File>();
 	Map<String, YamlConfiguration> config = new HashMap<String, YamlConfiguration>();
-    static Map<String, String> message = new HashMap<String, String>();
+	static Map<String, String> message = new HashMap<String, String>();
 	
 	public void messageconfig() {
 		File file = this.file.get("message");
 		YamlConfiguration config = this.config.get("message");
-		if(config.getString("Á¢µÎ¾î") != null) {
-			config.set("Á¢µÎ¾î", "&f[ &aÀåºñ &f] ");
+		if(config.getString("ì ‘ë‘ì–´") != null) {
+			config.set("ì ‘ë‘ì–´", "&f[ &aì¥ë¹„ &f] ");
 		}
-		if(config.getString("¹«±âºĞ·ù") != null) {
-			config.set("¹«±âºĞ·ù", "&f----------¹«±â----------");
+		if(config.getString("ë¬´ê¸°ë¶„ë¥˜") != null) {
+			config.set("ë¬´ê¸°ë¶„ë¥˜", "&f----------ë¬´ê¸°----------");
 		}
-		if(config.getString("ÀåºñºĞ·ù") != null) {
-			config.set("ÀåºñºĞ·ù", "&f----------Àåºñ----------");
+		if(config.getString("ì¥ë¹„ë¶„ë¥˜") != null) {
+			config.set("ì¥ë¹„ë¶„ë¥˜", "&f----------ì¥ë¹„----------");
 		}
-		if(config.getString("Àå½Å±¸ºĞ·ù") != null) {
-			config.set("Àå½Å±¸ºĞ·ù", "&f---------Àå½Å±¸---------");
+		if(config.getString("ì¥ì‹ êµ¬ë¶„ë¥˜") != null) {
+			config.set("ì¥ì‹ êµ¬ë¶„ë¥˜", "&f---------ì¥ì‹ êµ¬---------");
 		}
-		if(config.getString("ºĞ·ù") != null) {
-			config.set("ºĞ·ù", "&f----------------------");
+		if(config.getString("ë¶„ë¥˜") != null) {
+			config.set("ë¶„ë¥˜", "&f----------------------");
 		}
-		if(config.getString("°ø°İ·Â") != null) {
-			config.set("°ø°İ·Â", "&f°ø°İ·Â : <value>");
+		if(config.getString("ê³µê²©ë ¥") != null) {
+			config.set("ê³µê²©ë ¥", "&fê³µê²©ë ¥ : <value>");
 		}
-		if(config.getString("Ã¼·Â") != null) {
-			config.set("Ã¼·Â", "&fÃ¼·Â : <value>");
+		if(config.getString("ì²´ë ¥") != null) {
+			config.set("ì²´ë ¥", "&fì²´ë ¥ : <value>");
 		}
-		if(config.getString("È¸ÇÇÈ®·ü") != null) {
-			config.set("È¸ÇÇÈ®·ü", "&fÈ¸ÇÇÈ®·ü : <value>");
+		if(config.getString("íšŒí”¼í™•ë¥ ") != null) {
+			config.set("íšŒí”¼í™•ë¥ ", "&fíšŒí”¼í™•ë¥  : <value>");
 		}
-		if(config.getString("ÀÌµ¿¼Óµµ") != null) {
-			config.set("ÀÌµ¿¼Óµµ", "&fÀÌµ¿¼Óµµ : <value>");
+		if(config.getString("ì´ë™ì†ë„") != null) {
+			config.set("ì´ë™ì†ë„", "&fì´ë™ì†ë„ : <value>");
 		}
-		if(config.getString("¹æ¾î·Â") != null) {
-			config.set("¹æ¾î·Â", "&f¹æ¾î·Â : <value>");
+		if(config.getString("ë°©ì–´ë ¥") != null) {
+			config.set("ë°©ì–´ë ¥", "&fë°©ì–´ë ¥ : <value>");
 		}
-		if(config.getString("°ø°İ·Â") != null) {
-			config.set("°ø°İ·Â", "&f°ø°İ·Â : <value>");
+		if(config.getString("ê³µê²©ë ¥") != null) {
+			config.set("ê³µê²©ë ¥", "&fê³µê²©ë ¥ : <value>");
 		}
-		if(config.getString("ÀÏ¹İµî±Ş") != null) {
-			config.set("ÀÏ¹İµî±Ş", "&fÀÏ¹İ");
+		if(config.getString("ì¼ë°˜ë“±ê¸‰") != null) {
+			config.set("ì¼ë°˜ë“±ê¸‰", "&fì¼ë°˜");
 		}
-		if(config.getString("Èñ±Íµî±Ş") != null) {
-			config.set("Èñ±Íµî±Ş", "&aÈñ±Í");
+		if(config.getString("í¬ê·€ë“±ê¸‰") != null) {
+			config.set("í¬ê·€ë“±ê¸‰", "&aí¬ê·€");
 		}
-		if(config.getString("·¹¾îµî±Ş") != null) {
-			config.set("·¹¾îµî±Ş", "&9·¹¾î");
+		if(config.getString("ë ˆì–´ë“±ê¸‰") != null) {
+			config.set("ë ˆì–´ë“±ê¸‰", "&9ë ˆì–´");
 		}
-		if(config.getString("¿¡ÇÈµî±Ş") != null) {
-			config.set("¿¡ÇÈµî±Ş", "&5¿¡ÇÈ");
+		if(config.getString("ì—í”½ë“±ê¸‰") != null) {
+			config.set("ì—í”½ë“±ê¸‰", "&5ì—í”½");
 		}
-		if(config.getString("·¹Àüµåµî±Ş") != null) {
-			config.set("·¹Àüµåµî±Ş", "&6·¹Àüµå");
+		if(config.getString("ë ˆì „ë“œë“±ê¸‰") != null) {
+			config.set("ë ˆì „ë“œë“±ê¸‰", "&6ë ˆì „ë“œ");
 		}
-		if(config.getString("°­È­È½¼ö") != null) {
-			config.set("°­È­È½¼ö", "&f°­È­È½¼ö : <Value>/<MaxValue>");
+		if(config.getString("ê°•í™”íšŸìˆ˜") != null) {
+			config.set("ê°•í™”íšŸìˆ˜", "&fê°•í™”íšŸìˆ˜ : <Value>/<MaxValue>");
 		}
-		if(config.getString("¸í·É¾î¿À·ù") != null) {
-			config.set("¸í·É¾î¿À·ù", "¹«½¼¸í·É¾îÁÒ? Àß¸ğ¸£°Ú¾î¿ä!");
+		if(config.getString("ëª…ë ¹ì–´ì˜¤ë¥˜") != null) {
+			config.set("ëª…ë ¹ì–´ì˜¤ë¥˜", "ë¬´ìŠ¨ëª…ë ¹ì–´ì£ ? ì˜ëª¨ë¥´ê² ì–´ìš”!");
 		}
-		if(config.getString("°³¹ßÁß") != null) {
-			config.set("°³¹ßÁß", "¾ÆÁ÷... °³¹ßÁßÀÌ¿¡¿ä!");
+		if(config.getString("ê°œë°œì¤‘") != null) {
+			config.set("ê°œë°œì¤‘", "ì•„ì§... ê°œë°œì¤‘ì´ì—ìš”!");
 		}
 		for(String key : config.getKeys(false)) {
 			this.message.put(key, config.getString(key));
@@ -106,26 +106,26 @@ public class main extends JavaPlugin {
 	}
 	
 	public static String getString(String string) {
-		return main.message.get(string).replace("&", "¡×");
+		return main.message.get(string).replace("&", "Â§");
 	}
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if(sender instanceof Player) {
 			Player p = (Player) sender;
-		    if(command.getName().equalsIgnoreCase("Àåºñ")) {
-		    	p.sendMessage(getString("Á¢µÎ¾î") + getString("°³¹ßÁß"));
-		    }else if(command.getName().equalsIgnoreCase("Àåºñ°­È­")) {
-		    	p.sendMessage(getString("Á¢µÎ¾î") + getString("°³¹ßÁß"));
-		    }else if(command.getName().equalsIgnoreCase("Àåºñ¼³Á¤")) {
+		    if(command.getName().equalsIgnoreCase("ì¥ë¹„")) {
+		    	p.sendMessage(getString("ì ‘ë‘ì–´") + getString("ê°œë°œì¤‘"));
+		    }else if(command.getName().equalsIgnoreCase("ì¥ë¹„ê°•í™”")) {
+		    	p.sendMessage(getString("ì ‘ë‘ì–´") + getString("ê°œë°œì¤‘"));
+		    }else if(command.getName().equalsIgnoreCase("ì¥ë¹„ì„¤ì •")) {
 		    	if(args.length == 0) {
 		    		
 		    	}
 		    }else {
-		    	p.sendMessage(getString("Á¢µÎ¾î") + getString("¸í·É¾î¿À·ù"));
+		    	p.sendMessage(getString("ì ‘ë‘ì–´") + getString("ëª…ë ¹ì–´ì˜¤ë¥˜"));
 		    }
 		}else {
-			System.out.println("ÇÃ·¹ÀÌ¾î¸¸ ÀÔ·ÂÇÒ ¼ö ÀÖ´Â ¸í·É¾îÀÔ´Ï´Ù.");
+			System.out.println("í”Œë ˆì´ì–´ë§Œ ì…ë ¥í•  ìˆ˜ ìˆëŠ” ëª…ë ¹ì–´ì…ë‹ˆë‹¤.");
 		}
 		return super.onCommand(sender, command, label, args);
 	}
