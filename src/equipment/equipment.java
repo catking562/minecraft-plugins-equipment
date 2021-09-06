@@ -59,7 +59,7 @@ public class equipment {
 		for(Entry<String, intdistence> entry : defaultAttributable.entrySet()) {
 			lore.add(main.getString(entry.getKey()).replace("<Value>", entry.getValue().random() + ""));
 		}
-		lore.add(main.getString("강화횟수").replace("<Value>", "0").replace("<MaxValue", maxtighten + ""));
+		lore.add(main.getString("강화횟수").replace("<Value>", "0").replace("<MaxValue>", maxtighten + ""));
 		if(level == 0) {
 			lore.add(main.getString("일반등급"));
 		}else if(level == 1) {
@@ -94,7 +94,7 @@ public class equipment {
 		for(Entry<String, intdistence> entry : defaultAttributable.entrySet()) {
 			lore.add(main.getString(entry.getKey()).replace("<Value>", entry.getValue().getmax() + ""));
 		}
-		lore.add(main.getString("강화횟수").replace("<Value>", "0").replace("<MaxValue", maxtighten + ""));
+		lore.add(main.getString("강화횟수").replace("<Value>", "0").replace("<MaxValue>", maxtighten + ""));
 		if(level == 0) {
 			lore.add(main.getString("일반등급"));
 		}else if(level == 1) {
@@ -110,4 +110,39 @@ public class equipment {
 		i.setItemMeta(m);
 		return i;
 	}
+	
+	/*public ItemStack getitemfulltighten() {
+		ItemStack i = new ItemStack(itemmaterial);
+		ItemMeta m = i.getItemMeta();
+		m.setDisplayName(getname());
+		ArrayList<String> lore = new ArrayList<String>();
+		lore.add(getlore());
+		if(equipmentcategorie.equalsIgnoreCase("무기")) {
+			lore.add(main.getString("무기분류"));
+		}else if(equipmentcategorie.equalsIgnoreCase("장비")) {
+			lore.add(main.getString("장비분류"));
+		}else if(equipmentcategorie.equalsIgnoreCase("장신구")) {
+			lore.add(main.getString("장신구분류"));
+		}else {
+			lore.add(main.getString("분류"));
+		}
+		for(Entry<String, intdistence> entry : defaultAttributable.entrySet()) {
+			lore.add(main.getString(entry.getKey()).replace("<Value>", entry.getValue().getmax() + ""));
+		}
+		lore.add(main.getString("강화횟수").replace("<Value>", maxtighten + "").replace("<MaxValue>", maxtighten + ""));
+		if(level == 0) {
+			lore.add(main.getString("일반등급"));
+		}else if(level == 1) {
+			lore.add(main.getString("희귀등급"));
+		}else if(level == 2) {
+			lore.add(main.getString("레어등급"));
+		}else if(level == 3) {
+			lore.add(main.getString("에픽등급"));
+		}else if(level == 4) {
+			lore.add(main.getString("레전드등급"));
+		}
+		m.setLore(Arrays.asList(getlore()));
+		i.setItemMeta(m);
+		return i;
+	}*/
 }

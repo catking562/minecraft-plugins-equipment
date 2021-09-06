@@ -12,6 +12,9 @@ commands:
   장비설정:
     description: create equipment, set option for euipment
     permission: equipment.admin
+  장비강화:
+    description: open equipmenttighten Gui
+    permission: equipment.user
 
 permissions:
   equipment.admin:

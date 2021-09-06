@@ -5,7 +5,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class main extends JavaPlugin {
@@ -68,6 +71,12 @@ public class main extends JavaPlugin {
 		if(config.getString("강화횟수") != null) {
 			config.set("강화횟수", "&f강화횟수 : <Value>/<MaxValue>");
 		}
+		if(config.getString("명령어오류") != null) {
+			config.set("명령어오류", "무슨명령어죠? 잘모르겠어요!");
+		}
+		if(config.getString("개발중") != null) {
+			config.set("개발중", "아직... 개발중이에요!");
+		}
 		for(String key : config.getKeys(false)) {
 			this.message.put(key, config.getString(key));
 		}
@@ -98,6 +107,27 @@ public class main extends JavaPlugin {
 	
 	public static String getString(String string) {
 		return main.message.get(string).replace("&", "§");
+	}
+	
+	@Override
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		if(sender instanceof Player) {
+			Player p = (Player) sender;
+		    if(command.getName().equalsIgnoreCase("장비")) {
+		    	p.sendMessage(getString("접두어") + getString("개발중"));
+		    }else if(command.getName().equalsIgnoreCase("장비강화")) {
+		    	p.sendMessage(getString("접두어") + getString("개발중"));
+		    }else if(command.getName().equalsIgnoreCase("장비설정")) {
+		    	if(args.length == 0) {
+		    		
+		    	}
+		    }else {
+		    	p.sendMessage(getString("접두어") + getString("명령어오류"));
+		    }
+		}else {
+			System.out.println("플레이어만 입력할 수 있는 명령어입니다.");
+		}
+		return super.onCommand(sender, command, label, args);
 	}
 
 }
