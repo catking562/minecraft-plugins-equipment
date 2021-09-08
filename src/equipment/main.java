@@ -120,8 +120,14 @@ public class main extends JavaPlugin implements Listener {
 		if(config.getString("강화설정완료") == null) {
 			config.set("강화설정완료", "강화능력치를 설정하였습니다.");
 		}
-		if(config.getString("능력치") == null) {
-			config.set("능력치", "<Key> : <Value>");
+		if(config.getString("공격력") == null) {
+			config.set("공격력", "공격력 : <Value>");
+		}
+		if(config.getString("크리티컬확률") == null) {
+			config.set("크리티컬확률", "크리티컬확률 : <Value>");
+		}
+		if(config.getString("방어력") == null) {
+			config.set("방어력", "방어력 : <Value>");
 		}
 		for(String key : config.getKeys(false)) {
 			this.message.put(key, config.getString(key));
@@ -129,7 +135,6 @@ public class main extends JavaPlugin implements Listener {
 		try {
 			config.save(file);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -163,13 +168,35 @@ public class main extends JavaPlugin implements Listener {
 	public void playerequipmentconfig() {
 		YamlConfiguration config = this.config.get("playerequipment");
 		for(String key : config.getKeys(false)) {
-			
+			playerequipment peq = new playerequipment();
+			for(String value : config.getConfigurationSection(key).getKeys(false)) {
+				if(value.equalsIgnoreCase("head")) {
+					peq.sethead(config.getItemStack(key + ".head"));
+				}else if(value.equalsIgnoreCase("body")) {
+					peq.sethead(config.getItemStack(key + ".body"));
+				}else if(value.equalsIgnoreCase("leg")) {
+					peq.sethead(config.getItemStack(key + ".leg"));
+				}else if(value.equalsIgnoreCase("foot")) {
+					peq.sethead(config.getItemStack(key + ".foot"));
+				}else if(value.equalsIgnoreCase("weapon")) {
+					peq.sethead(config.getItemStack(key + ".weapon"));
+				}else if(value.equalsIgnoreCase("acc1")) {
+					peq.sethead(config.getItemStack(key + ".acc1"));
+				}else if(value.equalsIgnoreCase("acc2")) {
+					peq.sethead(config.getItemStack(key + ".acc2"));
+				}else if(value.equalsIgnoreCase("acc3")) {
+					peq.sethead(config.getItemStack(key + ".acc3"));
+				}
+			}
+			playerequi.put(Bukkit.getOfflinePlayer(key), peq);
 		}
 	}
 	
 	public void save() {
 		File equipmentfile = file.get("equipment");
 		YamlConfiguration equipmentconfig = config.get("equipment");
+		File playerequipmentfile = file.get("playerequipment");
+		YamlConfiguration playerequipmentconfig = config.get("playerequipment");
 		for(String key : equipmentconfig.getKeys(true)) {
 			equipmentconfig.set(key, null);
 		}
@@ -185,6 +212,32 @@ public class main extends JavaPlugin implements Listener {
 			}
 			for(Entry<String, intdistence> entry1 : entry.getValue().gettightenAttributable().entrySet()) {
 				equipmentconfig.set(entry.getKey() + ".gettightenAttributable." + entry1.getKey(), entry1.getValue().tostring());
+			}
+		}
+		for(Entry<OfflinePlayer, playerequipment> entry : playerequi.entrySet()) {
+			if(entry.getValue().hashead()) {
+				playerequipmentconfig.set(entry.getKey() + ".head", entry.getValue().gethead());
+			}
+			if(entry.getValue().hasbody()) {
+				playerequipmentconfig.set(entry.getKey() + ".body", entry.getValue().getbody());
+			}
+			if(entry.getValue().hasleg()) {
+				playerequipmentconfig.set(entry.getKey() + ".leg", entry.getValue().getleg());
+			}
+			if(entry.getValue().hasfoot()) {
+				playerequipmentconfig.set(entry.getKey() + ".foot", entry.getValue().getfoot());
+			}
+			if(entry.getValue().hasweapon()) {
+				playerequipmentconfig.set(entry.getKey() + ".weapon", entry.getValue().getweapon());
+			}
+			if(entry.getValue().hasaccessory1()) {
+				playerequipmentconfig.set(entry.getKey() + ".acc1", entry.getValue().getaccessory1());
+			}
+			if(entry.getValue().hasaccessory1()) {
+				playerequipmentconfig.set(entry.getKey() + ".acc2", entry.getValue().getaccessory2());
+			}
+			if(entry.getValue().hasaccessory1()) {
+				playerequipmentconfig.set(entry.getKey() + ".acc3", entry.getValue().getaccessory3());
 			}
 		}
 		try {
@@ -210,6 +263,7 @@ public class main extends JavaPlugin implements Listener {
 		config.put("playerequipment", playerequipmentconfig);
 		messageconfig();
 		equipmentconfig();
+		save();
 	}
 	
 	public static String getString(String string) {
