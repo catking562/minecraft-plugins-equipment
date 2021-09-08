@@ -58,6 +58,7 @@ public class equipment {
 		}
 		for(Entry<String, intdistence> entry : defaultAttributable.entrySet()) {
 			lore.add(main.getString(entry.getKey()).replace("<Value>", entry.getValue().random() + ""));
+			lore.add(main.getString("능력치").replace("<Key>", entry.getValue().random() + ""));
 		}
 		lore.add(main.getString("강화횟수").replace("<Value>", "0").replace("<MaxValue>", maxtighten + ""));
 		if(level == 0) {

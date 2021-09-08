@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -16,6 +17,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.WorldSaveEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -26,117 +28,109 @@ public class main extends JavaPlugin implements Listener {
 	Map<String, YamlConfiguration> config = new HashMap<String, YamlConfiguration>();
     static Map<String, String> message = new HashMap<String, String>();
     Map<String, equipment> equipmentlist = new HashMap<String, equipment>();
+    Map<OfflinePlayer, playerequipment> playerequi = new HashMap<OfflinePlayer, playerequipment>();
 	
 	public void messageconfig() {
 		File file = this.file.get("message");
 		YamlConfiguration config = this.config.get("message");
-		if(config.getString("접두어") != null) {
+		if(config.getString("접두어") == null) {
 			config.set("접두어", "&f[ &a장비 &f] ");
 		}
-		if(config.getString("무기분류") != null) {
+		if(config.getString("무기분류") == null) {
 			config.set("무기분류", "&f----------무기----------");
 		}
-		if(config.getString("장비분류") != null) {
+		if(config.getString("장비분류") == null) {
 			config.set("장비분류", "&f----------장비----------");
 		}
-		if(config.getString("장신구분류") != null) {
+		if(config.getString("장신구분류") == null) {
 			config.set("장신구분류", "&f---------장신구---------");
 		}
-		if(config.getString("분류") != null) {
+		if(config.getString("분류") == null) {
 			config.set("분류", "&f----------------------");
 		}
-		if(config.getString("공격력") != null) {
-			config.set("공격력", "&f공격력 : <value>");
-		}
-		if(config.getString("체력") != null) {
-			config.set("체력", "&f체력 : <value>");
-		}
-		if(config.getString("회피확률") != null) {
-			config.set("회피확률", "&f회피확률 : <value>");
-		}
-		if(config.getString("이동속도") != null) {
-			config.set("이동속도", "&f이동속도 : <value>");
-		}
-		if(config.getString("방어력") != null) {
-			config.set("방어력", "&f방어력 : <value>");
-		}
-		if(config.getString("공격력") != null) {
-			config.set("공격력", "&f공격력 : <value>");
-		}
-		if(config.getString("일반등급") != null) {
+		if(config.getString("일반등급") == null) {
 			config.set("일반등급", "&f일반");
 		}
-		if(config.getString("희귀등급") != null) {
+		if(config.getString("희귀등급") == null) {
 			config.set("희귀등급", "&a희귀");
 		}
-		if(config.getString("레어등급") != null) {
+		if(config.getString("레어등급") == null) {
 			config.set("레어등급", "&9레어");
 		}
-		if(config.getString("에픽등급") != null) {
+		if(config.getString("에픽등급") == null) {
 			config.set("에픽등급", "&5에픽");
 		}
-		if(config.getString("레전드등급") != null) {
+		if(config.getString("레전드등급") == null) {
 			config.set("레전드등급", "&6레전드");
 		}
-		if(config.getString("강화횟수") != null) {
+		if(config.getString("강화횟수") == null) {
 			config.set("강화횟수", "&f강화횟수 : <Value>/<MaxValue>");
 		}
-		if(config.getString("명령어오류") != null) {
+		if(config.getString("명령어오류") == null) {
 			config.set("명령어오류", "무슨명령어죠? 잘모르겠어요!");
 		}
-		if(config.getString("개발중") != null) {
+		if(config.getString("개발중") == null) {
 			config.set("개발중", "아직... 개발중이에요!");
 		}
-		if(config.getString("없는장비") != null) {
+		if(config.getString("없는장비") == null) {
 			config.set("없는장비", "존재하지 않는 장비입니다.");
 		}
-		if(config.getString("있는장비") != null) {
+		if(config.getString("있는장비") == null) {
 			config.set("있는장비", "이미 존재하는 장비입니다.");
 		}
-		if(config.getString("생성완료") != null) {
+		if(config.getString("생성완료") == null) {
 			config.set("생성완료", "장비를 생성하였습니다.");
 		}
-		if(config.getString("삭제완료") != null) {
+		if(config.getString("삭제완료") == null) {
 			config.set("삭제완료", "장비를 삭제하였습니다.");
 		}
-		if(config.getString("이름설정완료") != null) {
+		if(config.getString("이름설정완료") == null) {
 			config.set("이름설정완료", "장비의 이름을 설정하였습니다.");
 		}
-		if(config.getString("설명설정완료") != null) {
+		if(config.getString("설명설정완료") == null) {
 			config.set("설명설정완료", "장비의 설명을 설정하였습니다.");
 		}
-		if(config.getString("정수입력") != null) {
+		if(config.getString("정수입력") == null) {
 			config.set("정수입력", "정수를 입력해주세요.");
 		}
-		if(config.getString("아이템설정완료") != null) {
+		if(config.getString("아이템설정완료") == null) {
 			config.set("아이템설정완료", "장비의 아이템을 설정하였습니다.");
 		}
-		if(config.getString("등급설정완료") != null) {
+		if(config.getString("등급설정완료") == null) {
 			config.set("등급설정완료", "장비의 등급을 설정하였습니다.");
 		}
-		if(config.getString("0~4") != null) {
+		if(config.getString("0~4") == null) {
 			config.set("0~4", "0 ~ 4의 정수만 입력하세요.");
 		}
-		if(config.getString("최대강화횟수설정완료") != null) {
+		if(config.getString("최대강화횟수설정완료") == null) {
 			config.set("최대강화횟수설정완료", "장비의 최대강화횟수를 설정하였습니다.");
 		}
-		if(config.getString("0이상") != null) {
+		if(config.getString("0이상") == null) {
 			config.set("0이상", "0이상의 정수만 입력해주세요");
 		}
-		if(config.getString("템지급") != null) {
+		if(config.getString("템지급") == null) {
 			config.set("템지급", "장비를 지급하였습니다.");
 		}
-		if(config.getString("명령어값오류") != null) {
+		if(config.getString("명령어값오류") == null) {
 			config.set("명령어값오류", "값을 제대로 입력해주세요.");
 		}
-		if(config.getString("기본능력치설정완료") != null) {
+		if(config.getString("기본능력치설정완료") == null) {
 			config.set("기본능력치설정완료", "기본능력치를 설정하였습니다.");
 		}
-		if(config.getString("강화설정완료") != null) {
+		if(config.getString("강화설정완료") == null) {
 			config.set("강화설정완료", "강화능력치를 설정하였습니다.");
+		}
+		if(config.getString("능력치") == null) {
+			config.set("능력치", "<Key> : <Value>");
 		}
 		for(String key : config.getKeys(false)) {
 			this.message.put(key, config.getString(key));
+		}
+		try {
+			config.save(file);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -163,6 +157,13 @@ public class main extends JavaPlugin implements Listener {
 				equi.setdefaultAttributable(string, stringtodisint(equipmentconfig.getString(key + ".tightenAtributable." + string)));
 			}
 			equipmentlist.put(key, equi);
+		}
+	}
+	
+	public void playerequipmentconfig() {
+		YamlConfiguration config = this.config.get("playerequipment");
+		for(String key : config.getKeys(false)) {
+			
 		}
 	}
 	
@@ -193,29 +194,22 @@ public class main extends JavaPlugin implements Listener {
 		}
 	}
 	
-	public void savefirst() {
-		File messagefile = this.file.get("message");
-		YamlConfiguration messageconfig = this.config.get("message");
-		try {
-			messageconfig.save(messagefile);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	public void onEnable() {
 		Bukkit.getPluginManager().registerEvents(this, this);
 		File messagefile = new File(getDataFolder() + "/message.yml");
 		YamlConfiguration messageconfig = YamlConfiguration.loadConfiguration(messagefile);
 		File equipmentfile = new File(getDataFolder() + "/equipment.yml");
 		YamlConfiguration equipmentconfig = YamlConfiguration.loadConfiguration(equipmentfile);
+		File playerequipmentfile = new File(getDataFolder() + "/playerequipment.yml");
+		YamlConfiguration playerequipmentconfig = YamlConfiguration.loadConfiguration(playerequipmentfile);
 		file.put("message", messagefile);
 		config.put("message", messageconfig);
 		file.put("equipment", equipmentfile);
 		config.put("equipment", equipmentconfig);
+		file.put("playerequipment", playerequipmentfile);
+		config.put("playerequipment", playerequipmentconfig);
 		messageconfig();
 		equipmentconfig();
-		savefirst();
 	}
 	
 	public static String getString(String string) {
@@ -259,6 +253,11 @@ public class main extends JavaPlugin implements Listener {
 			return new intdistence(Integer.parseInt(s[0]), Integer.parseInt(s[s.length]));
 		}
 		return null;
+	}
+	
+	public Inventory equipmentGUI() {
+		Inventory inv = Bukkit.createInventory(null, 0);
+		return inv;
 	}
 	
 	@Override
