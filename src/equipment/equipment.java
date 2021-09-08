@@ -146,6 +146,30 @@ public class equipment {
 		return i;
 	}
 	
+	public Map<String, intdistence> getdefaultAttributable() {
+		return defaultAttributable;
+	}
+	
+	public Map<String, intdistence> gettightenAttributable() {
+		return tightenAttributable;
+	}
+	
+	public int getlevel() {
+		return level;
+	}
+	
+	public int getmaxtighten() {
+		return maxtighten;
+	}
+	
+	public Material getmaterial() {
+		return itemmaterial;
+	}
+	
+	public String getcategorie() {
+		return equipmentcategorie;
+	}
+	
 	/*public ItemStack getitemfulltighten() {
 		ItemStack i = new ItemStack(itemmaterial);
 		ItemMeta m = i.getItemMeta();

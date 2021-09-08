@@ -7,18 +7,20 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.world.WorldSaveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class main extends JavaPlugin {
+public class main extends JavaPlugin implements Listener {
 	
 	Map<String, File> file = new HashMap<String, File>();
 	Map<String, YamlConfiguration> config = new HashMap<String, YamlConfiguration>();
@@ -124,13 +126,71 @@ public class main extends JavaPlugin {
 		if(config.getString("템지급") != null) {
 			config.set("템지급", "장비를 지급하였습니다.");
 		}
+		if(config.getString("명령어값오류") != null) {
+			config.set("명령어값오류", "값을 제대로 입력해주세요.");
+		}
+		if(config.getString("기본능력치설정완료") != null) {
+			config.set("기본능력치설정완료", "기본능력치를 설정하였습니다.");
+		}
+		if(config.getString("강화설정완료") != null) {
+			config.set("강화설정완료", "강화능력치를 설정하였습니다.");
+		}
 		for(String key : config.getKeys(false)) {
 			this.message.put(key, config.getString(key));
 		}
 	}
 	
+	public void equipmentconfig() {
+		YamlConfiguration equipmentconfig = config.get("equipment");
+		for(String key : equipmentconfig.getKeys(false)) {
+			equipment equi = new equipment();
+			for(Entry<String, intdistence> entry : equi.getdefaultAttributable().entrySet()) {
+				equi.setdefaultAttributable(entry.getKey(), new intdistence(0, 0));
+			}
+			for(Entry<String, intdistence> entry : equi.gettightenAttributable().entrySet()) {
+				equi.settightenAttributable(entry.getKey(), new intdistence(0, 0));
+			}
+			equi.setname(equipmentconfig.getString(key + ".name"));
+			equi.setlore(equipmentconfig.getString(key + ".lore"));
+			equi.setlevel(equipmentconfig.getInt(key + ".level"));
+			equi.setmaxtighten(equipmentconfig.getInt(key + ".maxtighten"));
+			equi.setitemmaterial(Material.getMaterial(equipmentconfig.getString(key + ".material")));
+			equi.setequipmentcategorie(equipmentconfig.getString(key + ".categorie"));
+			for(String string : equipmentconfig.getConfigurationSection(key + ".defaultAttributable").getKeys(false)) {
+				equi.setdefaultAttributable(string, stringtodisint(equipmentconfig.getString(key + ".defaultAttributable." + string)));
+			}
+			for(String string : equipmentconfig.getConfigurationSection(key + ".tightenAttributable").getKeys(false)) {
+				equi.setdefaultAttributable(string, stringtodisint(equipmentconfig.getString(key + ".tightenAtributable." + string)));
+			}
+			equipmentlist.put(key, equi);
+		}
+	}
+	
 	public void save() {
-		
+		File equipmentfile = file.get("equipment");
+		YamlConfiguration equipmentconfig = config.get("equipment");
+		for(String key : equipmentconfig.getKeys(true)) {
+			equipmentconfig.set(key, null);
+		}
+		for(Entry<String, equipment> entry : equipmentlist.entrySet()) {
+			equipmentconfig.set(entry.getKey() + ".name", entry.getValue().getname());
+			equipmentconfig.set(entry.getKey() + ".lore", entry.getValue().getlore());
+			equipmentconfig.set(entry.getKey() + ".level", entry.getValue().getlevel());
+			equipmentconfig.set(entry.getKey() + ".maxtighten", entry.getValue().getmaxtighten());
+			equipmentconfig.set(entry.getKey() + ".material", entry.getValue().getmaterial().toString());
+			equipmentconfig.set(entry.getKey() + ".categorie", entry.getValue().getcategorie());
+			for(Entry<String, intdistence> entry1 : entry.getValue().getdefaultAttributable().entrySet()) {
+				equipmentconfig.set(entry.getKey() + ".defaultAttributable." + entry1.getKey(), entry1.getValue().tostring());
+			}
+			for(Entry<String, intdistence> entry1 : entry.getValue().gettightenAttributable().entrySet()) {
+				equipmentconfig.set(entry.getKey() + ".gettightenAttributable." + entry1.getKey(), entry1.getValue().tostring());
+			}
+		}
+		try {
+			equipmentconfig.save(equipmentfile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void savefirst() {
@@ -144,11 +204,17 @@ public class main extends JavaPlugin {
 	}
 	
 	public void onEnable() {
+		Bukkit.getPluginManager().registerEvents(this, this);
 		File messagefile = new File(getDataFolder() + "/message.yml");
 		YamlConfiguration messageconfig = YamlConfiguration.loadConfiguration(messagefile);
+		File equipmentfile = new File(getDataFolder() + "/equipment.yml");
+		YamlConfiguration equipmentconfig = YamlConfiguration.loadConfiguration(equipmentfile);
 		file.put("message", messagefile);
 		config.put("message", messageconfig);
+		file.put("equipment", equipmentfile);
+		config.put("equipment", equipmentconfig);
 		messageconfig();
+		equipmentconfig();
 		savefirst();
 	}
 	
@@ -324,19 +390,51 @@ public class main extends JavaPlugin {
 		    	}else if(args.length == 4) {
 		    		if(isequipment(args[0])) {
 		    			if(args[1].toString().equalsIgnoreCase("이름")) {
-		    				equipmentlist.get(args[1].toString()).setname(args[2].toString() + args[3].toString());
+		    				equipmentlist.get(args[1].toString()).setname(args[2].toString() + " " + args[3].toString());
 		    				p.sendMessage(getString("접두어") + getString("이름설정완료"));
 		    			}else if(args[1].toString().equalsIgnoreCase("설명")) {
-		    				equipmentlist.get(args[1]).setlore(args[2].toString() + args[3].toString());
+		    				equipmentlist.get(args[1]).setlore(args[2].toString() + " " + args[3].toString());
 		    				p.sendMessage(getString("접두어") + getString("설명설정완료"));
 		    			}else if(args[1].toString().equalsIgnoreCase("기본능력치")) {
 		    				if(stringtodisint(args[3]) != null) {
 		    					equipmentlist.get(args[1]).setdefaultAttributable(args[2], stringtodisint(args[3]));
+		    				}else {
+		    					p.sendMessage(getString("접두어") + getString("명령어값오류"));
 		    				}
+		    				p.sendMessage(getString("접두어") + getString("기본능력치설정완료"));
 		    			}else if(args[1].toString().equalsIgnoreCase("강화설정")) {
 		    				if(stringtodisint(args[3]) != null) {
 		    					equipmentlist.get(args[1]).settightenAttributable(args[2], stringtodisint(args[3]));
+		    				}else {
+		    					p.sendMessage(getString("접두어") + getString("명령어값오류"));
 		    				}
+		    				p.sendMessage(getString("접두어") + getString("강화설정완료"));
+		    			}else {
+		    				p.sendMessage(getString("접두어") + getString("명령어오류"));
+		    			}
+		    		}else {
+                        if(args[1].toString().equalsIgnoreCase("생성")) {
+		    				p.sendMessage(getString("접두어") + getString("명령어오류"));
+		    			}else {
+		    				p.sendMessage(getString("접두어") + getString("없는장비"));
+		    			}
+		    		}
+		    	}else if(args.length >= 5) {
+		    		if(isequipment(args[0])) {
+		    			if(args[1].toString().equalsIgnoreCase("이름")) {
+		    				String string = "";
+		    				for (int i = 2; i < args.length; i++) {
+								string = string + args[i] + " ";
+							}
+		    				equipmentlist.get(args[1].toString()).setname(string);
+		    				p.sendMessage(getString("접두어") + getString("이름설정완료"));
+		    			}else if(args[1].toString().equalsIgnoreCase("설명")) {
+		    				String string = "";
+		    				for (int i = 2; i < args.length; i++) {
+								string = string + args[i] + " ";
+							}
+		    				equipmentlist.get(args[1]).setlore(string);
+		    				p.sendMessage(getString("접두어") + getString("설명설정완료"));
 		    			}else {
 		    				p.sendMessage(getString("접두어") + getString("명령어오류"));
 		    			}

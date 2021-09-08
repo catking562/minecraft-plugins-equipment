@@ -23,5 +23,9 @@ public class intdistence {
 	public int random() {
 		return new Random().nextInt(maxint - minint) + minint;
 	}
+	
+	public String tostring() {
+		return minint + "~" + maxint;
+	}
 
 }
