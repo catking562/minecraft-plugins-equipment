@@ -2,7 +2,6 @@ package equipment;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -27,8 +26,8 @@ public class main extends JavaPlugin implements Listener {
 	Map<String, File> file = new HashMap<String, File>();
 	Map<String, YamlConfiguration> config = new HashMap<String, YamlConfiguration>();
     static Map<String, String> message = new HashMap<String, String>();
-    Map<String, equipment> equipmentlist = new HashMap<String, equipment>();
-    Map<OfflinePlayer, playerequipment> playerequi = new HashMap<OfflinePlayer, playerequipment>();
+    static Map<String, equipment> equipmentlist = new HashMap<String, equipment>();
+    static Map<OfflinePlayer, playerequipment> playerequi = new HashMap<OfflinePlayer, playerequipment>();
 	
 	public void messageconfig() {
 		File file = this.file.get("message");
@@ -145,7 +144,7 @@ public class main extends JavaPlugin implements Listener {
 			config.set("크리티컬데미지", "크리티컬데미지 : <Value>");
 		}
 		for(String key : config.getKeys(false)) {
-			this.message.put(key, config.getString(key));
+			main.message.put(key, config.getString(key));
 		}
 		try {
 			config.save(file);
@@ -180,6 +179,7 @@ public class main extends JavaPlugin implements Listener {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void playerequipmentconfig() {
 		YamlConfiguration config = this.config.get("playerequipment");
 		for(String key : config.getKeys(false)) {
@@ -207,6 +207,7 @@ public class main extends JavaPlugin implements Listener {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	public void save() {
 		File equipmentfile = file.get("equipment");
 		YamlConfiguration equipmentconfig = config.get("equipment");
@@ -329,6 +330,7 @@ public class main extends JavaPlugin implements Listener {
 		return inv;
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if(sender instanceof Player) {

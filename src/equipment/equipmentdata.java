@@ -108,5 +108,27 @@ public class equipmentdata {
 		return (name != null) && (lore != null) && (categorie != null) && (level != 5);
 	}
 	
-
+	public ItemStack getitem() {
+		return i;
+	}
+	
+	public String getname() {
+		return name;
+	}
+	
+	public String getlore() {
+		return lore;
+	}
+	
+	public String getcategorie() {
+		return categorie;
+	}
+	
+	public int getlevel() {
+		return level;
+	}
+	
+	public Map<String, Integer> getAttributable() {
+		return Attributable;
+	}
 }
