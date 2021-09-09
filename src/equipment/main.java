@@ -129,6 +129,21 @@ public class main extends JavaPlugin implements Listener {
 		if(config.getString("방어력") == null) {
 			config.set("방어력", "방어력 : <Value>");
 		}
+		if(config.getString("회피확률") == null) {
+			config.set("회파확률", "회피확률 : <Value>");
+		}
+		if(config.getString("이동속도") == null) {
+			config.set("이동속도", "이동속도 : <Value>");
+		}
+		if(config.getString("체력") == null) {
+			config.set("체력", "체력 : <Value>");
+		}
+		if(config.getString("방어력") == null) {
+			config.set("방어력", "방어력 : <Value>");
+		}
+		if(config.getString("크리티컬데미지") == null) {
+			config.set("크리티컬데미지", "크리티컬데미지 : <Value>");
+		}
 		for(String key : config.getKeys(false)) {
 			this.message.put(key, config.getString(key));
 		}
